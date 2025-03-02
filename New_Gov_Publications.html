@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- 
+    The viewport meta tag ensures proper scaling on all devices.
+    This design is optimized for a 15-inch screen.
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultations Update</title>
+  <style>
+    /* General page styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #ebf9fc;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    /* Header styling */
+    header {
+      background-color: #80c0d0;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 50px 0 0; /* Adds 20px space above the heading */
+      text-align: middle; /* Aligns the heading to the left */
+      font-size: 30px;
+      color: #ffff
+    }
+    /* Navigation Tabs styling */
+    header .nav-tabs ul {
+      list-style: none;
+      margin: 40px 0 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+    /* Add these new rules */
+    header .nav-tabs li {
+      margin: 0 10px;
+    }
+    header .nav-tabs a {
+      text-decoration: none;
+      padding: 10px 20px;
+      color: #010101;
+      border: 1px solid #ccc;
+      border-radius: 50px;
+      background: #ffffff;
+      transition: background-color 0.3s ease;
+      font-size: 24px;
+    }
+    header .nav-tabs a:hover {
+      background-color: #fad489;
+    }
+    /* Footer styling */
+    footer {
+      background-color: #f0f0f05e;
+      padding: 10px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    /* Table container styling */
+    .table-container {
+      width: 100%;
+      margin: 0 auto 20px;
+    }
+    /* Fixed header table styling */
+    .fixed-header {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    /* Scrollable data section styling */
+    .table-scrollable {
+      height: 250px;
+      overflow-y: auto;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    td, th {
+      padding: 10px;
+      border: 1px solid #666;
+      box-sizing: border-box;
+      height: 30px; /* Decreased from 40px to 30px */
+    }
+    /* Column widths */
+    col.date {
+      width: 15%;
+    }
+    col.consultation {
+      width: 85%;
+    }
+    /* APH theme (Table 1) */
+    .table1 .title td {
+      background-color: #0e1531;
+      color: white;
+      font-weight: bold;
+      text-align: left;
+    }
+    .table1 .header th {
+      background-color: #4275ae;
+      color: white;
+      font-weight: bold;
+      text-align: left;
+    }
+    .table1 .data-row td {
+      background-color: #f5f5f5;
+      /* color will be overridden by column-specific styling */
+      text-align: left;
+      vertical-align: top;
+      transition: background-color 0.3s ease;
+    }
+    /* DCCEEW theme (Table 2) */
+    .table2 .title td {
+      background-color: #083a42;
+      color: white;
+      font-weight: bold;
+      text-align: left;
+    }
+    .table2 .header th {
+      background-color: #4db7c7;
+      color: white;
+      font-weight: bold;
+      text-align: left;
+    }
+    .table2 .data-row td {
+      background-color: #f5f5f5;
+      /* color will be overridden by column-specific styling */
+      text-align: left;
+      vertical-align: top;
+      transition: background-color 0.3s ease;
+    }
+    /* Link styling */
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    /* DAFF theme (Table 3) */
+    .table3 .title td {
+      background-color: #f58e82;
+      color: white;
+      font-weight: bold;
+      text-align: left;
+    }
+    .table3 .header th {
+      background-color: #f9b2aa;
+      color: white;
+      font-weight: bold;
+      text-align: left;
+    }
+    .table3 .data-row td {
+      background-color: #f5f5f5;
+      /* color will be overridden by column-specific styling */
+      text-align: left;
+      vertical-align: top;
+      transition: background-color 0.3s ease;
+    }
+    /* DSIR theme (Table 4) */
+    .table4 .title td {
+      background-color: #001c2c;
+      color: white;
+      font-weight: bold;
+      text-align: left;
+    }
+    .table4 .header th {
+      background-color: #285576;
+      color: white;
+      font-weight: bold;
+      text-align: left;
+    }
+    .table4 .data-row td {
+      background-color: #f5f5f5;
+      /* color will be overridden by column-specific styling */
+      text-align: left;
+      vertical-align: top;
+      transition: background-color 0.3s ease;
+    }
+    /* TREASURY theme (Table 5) */
+    .table5 .title td {
+      background-color: #00293c;
+      color: white;
+      font-weight: bold;
+      text-align: left;
+    }
+    .table5 .header th {
+      background-color: #5ac6f8;
+      color: white;
+      font-weight: bold;
+      text-align: left;
+    }
+    .table5 .data-row td {
+      background-color: #f5f5f5;
+      /* color will be overridden by column-specific styling */
+      text-align: left;
+      vertical-align: top;
+      transition: background-color 0.3s ease;
+    }
+    /* DITRDCA theme (Table 6) */
+    .table6 .title td {
+      background-color: #083a42;
+      color: white;
+      font-weight: bold;
+      text-align: left;
+    }
+    .table6 .header th {
+      background-color: #4db7c7;
+      color: white;
+      font-weight: bold;
+      text-align: left;
+    }
+    .table6 .data-row td {
+      background-color: #f5f5f5;
+      /* color will be overridden by column-specific styling */
+      text-align: left;
+      vertical-align: top;
+      transition: background-color 0.3s ease;
+    }        
+    /* Link styling */
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    a:hover {
+      text-decoration: underline;
+    }    
+    /* Hover effect for data rows */
+    .data-row:hover td {
+      background-color: #fad489; /* Lighter highlight on hover */
+    }
+    /* Separate CSS styling for values under Date and Consultation columns */
+    /* For APH theme (Table 1) */
+    .table1 .data-row td:first-child {
+      /* Date column styling */
+      color: #d52316;
+      font-weight: bold;
+    }
+    .table1 .data-row td:nth-child(2) {
+      /* Consultation column styling */
+      color: #000000;
+    }
+    /* For DCCEEW theme (Table 2) */
+    .table2 .data-row td:first-child {
+      /* Date column styling */
+      color: #d52316;
+      font-weight: bold;
+    }
+    .table2 .data-row td:nth-child(2) {
+      /* Consultation column styling */
+      color: #000000;
+    }  
+    /* For DAFF theme (Table 3) */
+    .table3 .data-row td:first-child {
+      /* Date column styling */
+      color: #d52316;
+      font-weight: bold;
+    }
+    .table3 .data-row td:nth-child(2) {
+      /* Consultation column styling */
+      color: #000000;
+    }
+    /* For DSIR theme (Table 4) */
+    .table4 .data-row td:first-child {
+      /* Date column styling */
+      color: #d52316;
+      font-weight: bold;
+    }
+    .table4 .data-row td:nth-child(2) {
+      /* Consultation column styling */
+      color: #000000;
+    }
+    /* For TREASURY theme (Table 5) */
+    .table5 .data-row td:first-child {
+      /* Date column styling */
+      color: #d52316;
+      font-weight: bold;
+    }
+    .table5 .data-row td:nth-child(2) {
+      /* Consultation column styling */
+      color: #000000;
+    }
+    /* For DITRDCA theme (Table 3) */
+    .table6 .data-row td:first-child {
+      /* Date column styling */
+      color: #d52316;
+      font-weight: bold;
+    }
+    .table6 .data-row td:nth-child(2) {
+      /* Consultation column styling */
+      color: #000000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+<header>
+  <nav class="nav-tabs">
+    <ul>
+      <li><a href="Open_Public_Consultations.html" target="_blank">Open Public Consultations</a></li>
+      <li><a href="Weekly_Gov_News.html" target="_blank">Weekly Gov News</a></li>
+      <li><a href="Weekly_Gov_Events.html" target="_blank">Weekly Gov Events</a></li>
+      <li><a href="New_Gov_Publications.html" target="_blank">New Gov Publications</a></li>
+      <li><a href="Legislation_Update.html" target="_blank">Legislation Update</a></li>
+    </ul>
+  </nav>
+  <h1>New Gov Publications</h1>
+</header>  
+
+  <!-- Main container -->
+  <div class="container">
+    <!-- Table 1: APH Theme -->
+    <div class="table-container table1">
+      <!-- Fixed header section -->
+      <table class="fixed-header">
+        <colgroup>
+          <col class="date">
+          <col class="consultation">
+        </colgroup>
+        <tr class="title">
+          <td colspan="2">Australian Parliament House</td>
+        </tr>
+        <tr class="header">
+          <th>Date</th>
+          <th>Consultation</th>
+        </tr>
+      </table>
+      <!-- Scrollable data section -->
+      <div class="table-scrollable">
+        <table class="data-table">
+          <colgroup>
+            <col class="date">
+            <col class="consultation">
+          </colgroup>
+          <!-- Data rows for APH theme -->
+          <tr class="data-row">
+            <td>2025-01-01</td>
+            <td>
+              <a href="https://example.com/consultation1" target="_blank" rel="noopener noreferrer">
+                Consultation text row 1
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-01-02</td>
+            <td>
+              <a href="https://example.com/consultation2" target="_blank" rel="noopener noreferrer">
+                Consultation text row 2
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-01-03</td>
+            <td>
+              <a href="https://example.com/consultation3" target="_blank" rel="noopener noreferrer">
+                Consultation text row 3
+              </a>
+            </td>
+          </tr>
+          <!-- Additional data rows (up to 15 rows) go here... -->
+          <tr class="data-row">
+            <td>2025-01-04</td>
+            <td>
+              <a href="https://example.com/consultation4" target="_blank" rel="noopener noreferrer">
+                Consultation text row 4
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-01-05</td>
+            <td>
+              <a href="https://example.com/consultation5" target="_blank" rel="noopener noreferrer">
+                Consultation text row 5
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-01-06</td>
+            <td>
+              <a href="https://example.com/consultation6" target="_blank" rel="noopener noreferrer">
+                Consultation text row 6
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-01-07</td>
+            <td>
+              <a href="https://example.com/consultation7" target="_blank" rel="noopener noreferrer">
+                Consultation text row 7
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-01-08</td>
+            <td>
+              <a href="https://example.com/consultation8" target="_blank" rel="noopener noreferrer">
+                Consultation text row 8
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-01-09</td>
+            <td>
+              <a href="https://example.com/consultation9" target="_blank" rel="noopener noreferrer">
+                Consultation text row 9
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-01-10</td>
+            <td>
+              <a href="https://example.com/consultation10" target="_blank" rel="noopener noreferrer">
+                Consultation text row 10
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-01-11</td>
+            <td>
+              <a href="https://example.com/consultation11" target="_blank" rel="noopener noreferrer">
+                Consultation text row 11
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-01-12</td>
+            <td>
+              <a href="https://example.com/consultation12" target="_blank" rel="noopener noreferrer">
+                Consultation text row 12
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-01-13</td>
+            <td>
+              <a href="https://example.com/consultation13" target="_blank" rel="noopener noreferrer">
+                Consultation text row 13
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-01-14</td>
+            <td>
+              <a href="https://example.com/consultation14" target="_blank" rel="noopener noreferrer">
+                Consultation text row 14
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-01-15</td>
+            <td>
+              <a href="https://example.com/consultation15" target="_blank" rel="noopener noreferrer">
+                Consultation text row 15
+              </a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Table 2: DCCEEW Theme -->
+    <div class="table-container table2">
+      <!-- Fixed header section -->
+      <table class="fixed-header">
+        <colgroup>
+          <col class="date">
+          <col class="consultation">
+        </colgroup>
+        <tr class="title">
+          <td colspan="2">Department of Climate Change, Energy, the Environment and Water (DCCEEW)</td>
+        </tr>
+        <tr class="header">
+          <th>Date</th>
+          <th>Consultation</th>
+        </tr>
+      </table>
+      <!-- Scrollable data section -->
+      <div class="table-scrollable">
+        <table class="data-table">
+          <colgroup>
+            <col class="date">
+            <col class="consultation">
+          </colgroup>
+          <!-- Data rows for DCCEEW theme -->
+          <tr class="data-row">
+            <td>2025-02-01</td>
+            <td>
+              <a href="https://example.com/consultation1" target="_blank" rel="noopener noreferrer">
+                Consultation text row 1
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-02-02</td>
+            <td>
+              <a href="https://example.com/consultation2" target="_blank" rel="noopener noreferrer">
+                Consultation text row 2
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-02-03</td>
+            <td>
+              <a href="https://example.com/consultation3" target="_blank" rel="noopener noreferrer">
+                Consultation text row 3
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-02-04</td>
+            <td>
+              <a href="https://example.com/consultation4" target="_blank" rel="noopener noreferrer">
+                Consultation text row 4
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-02-05</td>
+            <td>
+              <a href="https://example.com/consultation5" target="_blank" rel="noopener noreferrer">
+                Consultation text row 5
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-02-06</td>
+            <td>
+              <a href="https://example.com/consultation6" target="_blank" rel="noopener noreferrer">
+                Consultation text row 6
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-02-07</td>
+            <td>
+              <a href="https://example.com/consultation7" target="_blank" rel="noopener noreferrer">
+                Consultation text row 7
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-02-08</td>
+            <td>
+              <a href="https://example.com/consultation8" target="_blank" rel="noopener noreferrer">
+                Consultation text row 8
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-02-09</td>
+            <td>
+              <a href="https://example.com/consultation9" target="_blank" rel="noopener noreferrer">
+                Consultation text row 9
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-02-10</td>
+            <td>
+              <a href="https://example.com/consultation10" target="_blank" rel="noopener noreferrer">
+                Consultation text row 10
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-02-11</td>
+            <td>
+              <a href="https://example.com/consultation11" target="_blank" rel="noopener noreferrer">
+                Consultation text row 11
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-02-12</td>
+            <td>
+              <a href="https://example.com/consultation12" target="_blank" rel="noopener noreferrer">
+                Consultation text row 12
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-02-13</td>
+            <td>
+              <a href="https://example.com/consultation13" target="_blank" rel="noopener noreferrer">
+                Consultation text row 13
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-02-14</td>
+            <td>
+              <a href="https://example.com/consultation14" target="_blank" rel="noopener noreferrer">
+                Consultation text row 14
+              </a>
+            </td>
+          </tr>
+          <tr class="data-row">
+            <td>2025-02-15</td>
+            <td>
+              <a href="https://example.com/consultation15" target="_blank" rel="noopener noreferrer">
+                Consultation text row 15
+              </a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <!-- Table 3: DAFF Theme -->
+    <div class="table-container table3">
+        <!-- Fixed header section -->
+        <table class="fixed-header">
+          <colgroup>
+            <col class="date">
+            <col class="consultation">
+          </colgroup>
+          <tr class="title">
+            <td colspan="2">Department of Agriculture, Fisheries and Forestry (DAFF)</td>
+          </tr>
+          <tr class="header">
+            <th>Date</th>
+            <th>Consultation</th>
+          </tr>
+        </table>
+        <!-- Scrollable data section -->
+        <div class="table-scrollable">
+          <table class="data-table">
+            <colgroup>
+              <col class="date">
+              <col class="consultation">
+            </colgroup>
+            <!-- Data rows for DAFF theme -->
+            <tr class="data-row">
+              <td>2025-02-01</td>
+              <td>
+                <a href="https://example.com/consultation1" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 1
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-02</td>
+              <td>
+                <a href="https://example.com/consultation2" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 2
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-03</td>
+              <td>
+                <a href="https://example.com/consultation3" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 3
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-04</td>
+              <td>
+                <a href="https://example.com/consultation4" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 4
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-05</td>
+              <td>
+                <a href="https://example.com/consultation5" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 5
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-06</td>
+              <td>
+                <a href="https://example.com/consultation6" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 6
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-07</td>
+              <td>
+                <a href="https://example.com/consultation7" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 7
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-08</td>
+              <td>
+                <a href="https://example.com/consultation8" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 8
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-09</td>
+              <td>
+                <a href="https://example.com/consultation9" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 9
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-10</td>
+              <td>
+                <a href="https://example.com/consultation10" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 10
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-11</td>
+              <td>
+                <a href="https://example.com/consultation11" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 11
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-12</td>
+              <td>
+                <a href="https://example.com/consultation12" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 12
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-13</td>
+              <td>
+                <a href="https://example.com/consultation13" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 13
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-14</td>
+              <td>
+                <a href="https://example.com/consultation14" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 14
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-15</td>
+              <td>
+                <a href="https://example.com/consultation15" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 15
+                </a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    <!-- Table 4: DSIR Theme -->
+    <div class="table-container table4">
+        <!-- Fixed header section -->
+        <table class="fixed-header">
+          <colgroup>
+            <col class="date">
+            <col class="consultation">
+          </colgroup>
+          <tr class="title">
+            <td colspan="2">Department of Industry Science and Resources (DSIR)</td>
+          </tr>
+          <tr class="header">
+            <th>Date</th>
+            <th>Consultation</th>
+          </tr>
+        </table>
+        <!-- Scrollable data section -->
+        <div class="table-scrollable">
+          <table class="data-table">
+            <colgroup>
+              <col class="date">
+              <col class="consultation">
+            </colgroup>
+            <!-- Data rows for DSIR theme -->
+            <tr class="data-row">
+              <td>2025-02-01</td>
+              <td>
+                <a href="https://example.com/consultation1" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 1
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-02</td>
+              <td>
+                <a href="https://example.com/consultation2" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 2
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-03</td>
+              <td>
+                <a href="https://example.com/consultation3" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 3
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-04</td>
+              <td>
+                <a href="https://example.com/consultation4" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 4
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-05</td>
+              <td>
+                <a href="https://example.com/consultation5" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 5
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-06</td>
+              <td>
+                <a href="https://example.com/consultation6" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 6
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-07</td>
+              <td>
+                <a href="https://example.com/consultation7" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 7
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-08</td>
+              <td>
+                <a href="https://example.com/consultation8" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 8
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-09</td>
+              <td>
+                <a href="https://example.com/consultation9" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 9
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-10</td>
+              <td>
+                <a href="https://example.com/consultation10" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 10
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-11</td>
+              <td>
+                <a href="https://example.com/consultation11" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 11
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-12</td>
+              <td>
+                <a href="https://example.com/consultation12" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 12
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-13</td>
+              <td>
+                <a href="https://example.com/consultation13" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 13
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-14</td>
+              <td>
+                <a href="https://example.com/consultation14" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 14
+                </a>
+              </td>
+            </tr>
+            <tr class="data-row">
+              <td>2025-02-15</td>
+              <td>
+                <a href="https://example.com/consultation15" target="_blank" rel="noopener noreferrer">
+                  Consultation text row 15
+                </a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    
+        <!-- Table 5: TRASURY Theme -->
+        <div class="table-container table5">
+            <!-- Fixed header section -->
+            <table class="fixed-header">
+              <colgroup>
+                <col class="date">
+                <col class="consultation">
+              </colgroup>
+              <tr class="title">
+                <td colspan="2">Treasury</td>
+              </tr>
+              <tr class="header">
+                <th>Date</th>
+                <th>Consultation</th>
+              </tr>
+            </table>
+            <!-- Scrollable data section -->
+            <div class="table-scrollable">
+              <table class="data-table">
+                <colgroup>
+                  <col class="date">
+                  <col class="consultation">
+                </colgroup>
+                <!-- Data rows for TRASURY theme -->
+                <tr class="data-row">
+                  <td>2025-02-01</td>
+                  <td>
+                    <a href="https://example.com/consultation1" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 1
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-02</td>
+                  <td>
+                    <a href="https://example.com/consultation2" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 2
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-03</td>
+                  <td>
+                    <a href="https://example.com/consultation3" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 3
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-04</td>
+                  <td>
+                    <a href="https://example.com/consultation4" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 4
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-05</td>
+                  <td>
+                    <a href="https://example.com/consultation5" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 5
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-06</td>
+                  <td>
+                    <a href="https://example.com/consultation6" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 6
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-07</td>
+                  <td>
+                    <a href="https://example.com/consultation7" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 7
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-08</td>
+                  <td>
+                    <a href="https://example.com/consultation8" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 8
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-09</td>
+                  <td>
+                    <a href="https://example.com/consultation9" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 9
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-10</td>
+                  <td>
+                    <a href="https://example.com/consultation10" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 10
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-11</td>
+                  <td>
+                    <a href="https://example.com/consultation11" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 11
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-12</td>
+                  <td>
+                    <a href="https://example.com/consultation12" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 12
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-13</td>
+                  <td>
+                    <a href="https://example.com/consultation13" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 13
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-14</td>
+                  <td>
+                    <a href="https://example.com/consultation14" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 14
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-15</td>
+                  <td>
+                    <a href="https://example.com/consultation15" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 15
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+    
+        <!-- Table 6: DITRDCA Theme -->
+        <div class="table-container table6">
+            <!-- Fixed header section -->
+            <table class="fixed-header">
+              <colgroup>
+                <col class="date">
+                <col class="consultation">
+              </colgroup>
+              <tr class="title">
+                <td colspan="2">Department of Infrastructure, Transport, Regional Development, Communications and the Arts (DITRDCA)</td>
+              </tr>
+              <tr class="header">
+                <th>Date</th>
+                <th>Consultation</th>
+              </tr>
+            </table>
+            <!-- Scrollable data section -->
+            <div class="table-scrollable">
+              <table class="data-table">
+                <colgroup>
+                  <col class="date">
+                  <col class="consultation">
+                </colgroup>
+                <!-- Data rows for DITRDCA theme -->
+                <tr class="data-row">
+                  <td>2025-02-01</td>
+                  <td>
+                    <a href="https://example.com/consultation1" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 1
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-02</td>
+                  <td>
+                    <a href="https://example.com/consultation2" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 2
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-03</td>
+                  <td>
+                    <a href="https://example.com/consultation3" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 3
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-04</td>
+                  <td>
+                    <a href="https://example.com/consultation4" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 4
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-05</td>
+                  <td>
+                    <a href="https://example.com/consultation5" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 5
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-06</td>
+                  <td>
+                    <a href="https://example.com/consultation6" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 6
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-07</td>
+                  <td>
+                    <a href="https://example.com/consultation7" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 7
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-08</td>
+                  <td>
+                    <a href="https://example.com/consultation8" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 8
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-09</td>
+                  <td>
+                    <a href="https://example.com/consultation9" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 9
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-10</td>
+                  <td>
+                    <a href="https://example.com/consultation10" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 10
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-11</td>
+                  <td>
+                    <a href="https://example.com/consultation11" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 11
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-12</td>
+                  <td>
+                    <a href="https://example.com/consultation12" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 12
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-13</td>
+                  <td>
+                    <a href="https://example.com/consultation13" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 13
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-14</td>
+                  <td>
+                    <a href="https://example.com/consultation14" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 14
+                    </a>
+                  </td>
+                </tr>
+                <tr class="data-row">
+                  <td>2025-02-15</td>
+                  <td>
+                    <a href="https://example.com/consultation15" target="_blank" rel="noopener noreferrer">
+                      Consultation text row 15
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          
+          
+    </div>
+
+
+  <!-- Footer -->
+  <footer>
+    <p>Footer Content &copy; 2025</p>
+  </footer>
+</body>
+</html>
